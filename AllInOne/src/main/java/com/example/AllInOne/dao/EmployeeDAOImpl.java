@@ -1,5 +1,7 @@
 package com.example.AllInOne.dao;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +23,18 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 		jdbcTemplate.update(sql);
 	}
 
+
 	@Override
-	public Employee getEmployee() {
-		// TODO Auto-generated method stub
-		return null;
+	public Employee getEmployee(int empId) {
+		String sql="select * from sudheer.employee where id="+empId;
+		return jdbcTemplate.queryForObject(sql, new EmployeeRowMapper());
+	}
+
+
+	@Override
+	public List<Employee> getEmployeeList() {
+		String sql="select * from sudheer.employee";
+		return jdbcTemplate.query(sql, new EmployeeRowMapper());
 	}
 
 }
